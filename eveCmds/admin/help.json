@@ -1,0 +1,28 @@
+{
+    "admin":{
+        "blacklist":{
+            "name":"balcklist",
+            "usage":"<prefix> blacklist <ping user>",
+            "classified":"false",
+            "description":"Blacklist user and make the user unable to message until the user is removed from the list"
+        },
+        "clear":{
+            "name":"clear",
+            "usage":"<prefix> clear <amount>",
+            "classified":"false",
+            "note":"max <amount>: 50 messages",
+            "description":"Clears as many messages as you want in the text channel"
+        },
+        "maintenance":"Toggle maintenance mode to avoid command delay from user using spam command",
+        "eve":"View historical logs of multiple chats, CLASSIFIED",
+        "system":"View the bots system, database, guild count, members connected etc, CLASSIFIED"
+    },
+    "tool":{
+    "spam":"Spams you desire message with as many times as you want",
+    "ping":"Get the user and bot's API latency"
+    },
+    "eveOnline":{
+        "route":"Calculates the route path from a system to another",
+        "get":"Get the item description,id,name,volume and base price"
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "music-life",
+  "version": "1.0.0",
+  "description": "",
+  "main": "core.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Miserable Life#5677",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.3.1",
+    "EVEoj": "^0.3.1",
+    "js-yaml": "^4.1.0",
+    "open-file": "^1.0.0",
+    "python-shell": "^3.0.1",
+    "underscore": "^1.13.2",
+    "util": "^0.12.4",
+    "wait-until": "^0.0.2"
+  }
+}
