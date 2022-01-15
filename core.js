@@ -324,5 +324,5 @@ if(message.content == settings.prefix + "test2"){
 }
 })
 clients.login(config.login)
-tClients.login("OTI4OTE0NTcyMjAxNTYyMTQz.YdftHA._VtAVp-3w3mOaS2raa9GmhywrVU")
+tClients.login("CLASSIFIED")
 
