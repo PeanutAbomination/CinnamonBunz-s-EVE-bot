@@ -34,14 +34,17 @@ fs.unlink(get + "", function (err) {
 });
 
 # after the script it should said this error in the console:
-# <random wormhole region extend to 20 lines at least>
-# undefined:17
-#    if (err) throw err;
-#             ^
-#
-# [Error: EPERM: operation not permitted, unlink '\sde\fsd\universe\wormhole\A-R00001\A-C00311\J105443'] {
-#  errno: -4048,
-#  code: 'EPERM',
-#  syscall: 'unlink',
-#  path: 'C:\\Users\\1love\\Documents\\EVE\\sde\\fsd\\universe\\wormhole\\A-R00001\\A-C00311\\J105443'
-# }
+ <random wormhole region extend to 20 lines at least>
+ undefined:17
+    if (err) throw err;
+             ^
+
+ [Error: EPERM: operation not permitted, unlink '\sde\fsd\universe\wormhole\A-R00001\A-C00311\J105443'] {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'unlink',
+  path: 'C:\\Users\\1love\\Documents\\EVE\\sde\\fsd\\universe\\wormhole\\A-R00001\\A-C00311\\J105443'
+ }
+
+
+# some folders like SDE and node module arent included
