@@ -199,4 +199,4 @@ if(message.content == settings.prefix + "test2"){
   }
 })
 clients.login(config.login)
-tClients.login("OTI4OTE0NTcyMjAxNTYyMTQz.YdftHA.U32U0EVfGvXh2CuWlkCf8yoP3_w")
+tClients.login("")
