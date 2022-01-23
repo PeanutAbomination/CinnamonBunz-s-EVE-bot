@@ -241,7 +241,7 @@ module.exports = {
                     fs.readFile('./eveCmds/eveDatabase/onDate.xml', 'utf8', function(err, data){
             let ping = new Discord.MessageEmbed()
             .setTitle("Database system status")
-            .setDescription("Status: **Online**\n\nLatest comminucation: **" + data + "**")
+            .setDescription("Auto Check: **Online**\n\nLatest comminucation: **" + data + "**")
             .setColor("BLUE")
             .setFooter(message.author.tag + " | " + `${Math.round(message.client.ws.ping)}ms`, `${message.author.avatarURL()}`)
             message.channel.send({embeds:[ping]})
@@ -251,7 +251,7 @@ module.exports = {
                     fs.readFile('./eveCmds/eveDatabase/offDate.xml', 'utf8', function(err, data){
                     let ping = new Discord.MessageEmbed()
                     .setTitle("Database system status")
-                    .setDescription("Status: **Offline**\n\nOffline since: **" + data + "**")
+                    .setDescription("Auto checker: **Offline**\n\nOffline since: **" + data + "**")
                     .setColor("RED")
                     .setFooter(message.author.tag + " | " + `${Math.round(message.client.ws.ping)}ms`, `${message.author.avatarURL()}`)
                     message.channel.send({embeds:[ping]})

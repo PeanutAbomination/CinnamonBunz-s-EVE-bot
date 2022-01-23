@@ -45,28 +45,60 @@ module.exports = {
                 const end = `${filter.split("/")[1].replace("_","")}`
                 if((map.GetSystem({name: `${start}`}))){
                     if((map.GetSystem({name: `${end}`}))){
-                        var exist = "1"
-                        var routeName = ""
-                var starSystem1 = map.GetSystem({name: `${start}`});
-                var  starSystem2 = map.GetSystem({name: `${end}`});
-                var route = (map.Route(starSystem1.ID, starSystem2.ID, [], true, true) + "").split(",")
-                for (let steps = 0; steps < route.length; steps++){
-                var routeName = routeName + ` > ${map.GetSystem({id: route[steps]}).name} [${map.GetSystem({id: route[steps]}).sec}]`
-                }
-                let routePath = new Discord.MessageEmbed()
-                .setTitle("Path from " + `${filter.split("/")[0].replace("route ","")} to ${filter.split("/")[1]}`)
-                .setFields(
-                    {name: "Route length:", value: `**${route.length}**` },
-                    {name: "Path:", value: `**${start} [${map.GetSystem({name: start}).sec}]` + `${routeName}**`}
-                )
-                .setDescription("\n\nAll system data is from [this database](https://drive.google.com/drive/u/1/folders/1pR--h9IBn4CBpbA-zvvrAplNblbnfXc2) locally")
-                .setColor("BLUE")
-                message.channel.send({embeds:[routePath]})
-                console.log(`${start} to ${end} route length: ` + `${route.length}`);
-                    }
-                }else
-                console.log(exist)
-                if(exist == "0"){
+                        var pFilter = `${filter.split("/")[2]}`
+                        if(!(pFilter == undefined)){
+                            console.log(pFilter)
+                            if((pFilter == "safe") || (pFilter == "fast") || (pFilter == "not safe")){
+                                var exist = "1"
+                                if(pFilter == "safe"){
+                                    var avoidLow = true
+                                    var avoidHigh = false
+                                }else
+                                if(pFilter == "fast"){
+                                    var avoidLow = true
+                                    var avoidHigh = true
+                                }else
+                                if(pFilter == "not safe"){
+                                    var avoidLow = false
+                                    var avoidHigh = true
+                                }
+                                var starSystem1 = map.GetSystem({name: `${start}`});
+                                var  starSystem2 = map.GetSystem({name: `${end}`});
+                                var route = (map.Route(starSystem1.ID, starSystem2.ID, [], avoidLow, avoidHigh) + "").split(",")
+                                for (let steps = 0; steps < route.length; steps++){
+                                var routeName = routeName + ` > ${map.GetSystem({id: route[steps]}).name} [${map.GetSystem({id: route[steps]}).sec}]`
+                                }
+                                let routePath = new Discord.MessageEmbed()
+                                .setTitle("Path from " + `${filter.split("/")[0].replace("route ","")} to ${filter.split("/")[1]}`)
+                                .setFields(
+                                    {name: "Route length:", value: `**${route.length}**` },
+                                    {name: "Path:", value: `**${start} [${map.GetSystem({name: start}).sec}]` + `${routeName}**`}
+                                )
+                                .setDescription("\n\nAll system data is from [this database](https://drive.google.com/drive/u/1/folders/1pR--h9IBn4CBpbA-zvvrAplNblbnfXc2) locally")
+                                .setColor("BLUE")
+                                message.channel.send({embeds:[routePath]})
+                                console.log(`${start} to ${end} route length: ` + `${route.length}`);
+                            }else
+                            if(!(pFilter == "safe") && !(pFilter == "fast") && !(pFilter == "not safe")){
+                                var status = "FAILED"
+                    var reason = "variable <avoidLow or avoidHigh> invalid"
+                    var extraString = cmdName.replace("route ", "")
+                    let reportToChannel = new Discord.MessageEmbed()
+                       .setTitle("Report from the bot")
+                       .setDescription(`Command Name:\n\`\`\`js\n${cmdName}\n\`\`\`\nExtra String:\n\`\`\`js\n${extraString}\n\`\`\`\nStatus:\n\`\`\`js\n${status}\n\`\`\`\nReason:\n\`\`\`js\n${reason}\n\`\`\`\nTime:\n\`\`\`js\n${Date().toLocaleString('en-US')}\n\`\`\`\nUser Tag:\n \`\`\`js\n${message.author.tag}\n\`\`\`\nUser ID:\n\`\`\`js\n ${message.author.id}\n\`\`\`\nServer: \n\`\`\`js\n${message.guild.name}\n\`\`\`\nServer ID:\n\`\`\`js\n${message.guild.id}\n\`\`\`\nServer Member Count:\n\`\`\`js\n${message.guild.memberCount}\n\`\`\``) 
+                       .setColor("BLUE")
+                       .setFooter("")
+                       clients.channels.cache.get("916977769823477800").send({embeds:[reportToChannel]})
+                       let err = new Discord.MessageEmbed()
+       .setTitle("Failed to calculate route")
+       .setDescription(`Error: \`\`\`js\nUser input variable <avoidLow or avoidHigh> invalid\n\`\`\``)
+       .setColor("RED")
+       message.channel.send({embeds:[err]})
+                            }
+
+                        }
+                    }else
+                    if(!(map.GetSystem({name: `${end}`}))){
                     var status = "FAILED"
                     var reason = "variable <find STATIC.ROUTE> input unreachable, simulation of star system route failed"
                     var extraString = cmdName.replace("route ", "")
@@ -81,17 +113,23 @@ module.exports = {
        .setDescription(`Error: \`\`\`js\nUser input variable <find STATIC.ROUTE> input of system not exist, unreachable or Kspace category\n\`\`\``)
        .setColor("RED")
        message.channel.send({embeds:[err]})
+                    }
                 }else
-                if(exist == "1"){
-                    var status = "SUCCESSFUL"
-    var reason = "N/A"
-    var extraString = cmdName.replace("route ", "")
-    let reportToChannel = new Discord.MessageEmbed()
-       .setTitle("Report from the bot")
-       .setDescription(`Command Name:\n\`\`\`js\n${cmdName}\n\`\`\`\nExtra String:\n\`\`\`js\n${extraString}\n\`\`\`\nStatus:\n\`\`\`js\n${status}\n\`\`\`\nReason:\n\`\`\`js\n${reason}\n\`\`\`\nTime:\n\`\`\`js\n${Date().toLocaleString('en-US')}\n\`\`\`\nUser Tag:\n \`\`\`js\n${message.author.tag}\n\`\`\`\nUser ID:\n\`\`\`js\n ${message.author.id}\n\`\`\`\nServer: \n\`\`\`js\n${message.guild.name}\n\`\`\`\nServer ID:\n\`\`\`js\n${message.guild.id}\n\`\`\`\nServer Member Count:\n\`\`\`js\n${message.guild.memberCount}\n\`\`\``) 
-       .setColor("BLUE")
-       .setFooter("")
-       clients.channels.cache.get("916977769823477800").send({embeds:[reportToChannel]})
+                if(!(map.GetSystem({name: `${start}`}))){
+                var status = "FAILED"
+                    var reason = "variable <find STATIC.ROUTE> input unreachable, simulation of star system route failed"
+                    var extraString = cmdName.replace("route ", "")
+                    let reportToChannel = new Discord.MessageEmbed()
+                       .setTitle("Report from the bot")
+                       .setDescription(`Command Name:\n\`\`\`js\n${cmdName}\n\`\`\`\nExtra String:\n\`\`\`js\n${extraString}\n\`\`\`\nStatus:\n\`\`\`js\n${status}\n\`\`\`\nReason:\n\`\`\`js\n${reason}\n\`\`\`\nTime:\n\`\`\`js\n${Date().toLocaleString('en-US')}\n\`\`\`\nUser Tag:\n \`\`\`js\n${message.author.tag}\n\`\`\`\nUser ID:\n\`\`\`js\n ${message.author.id}\n\`\`\`\nServer: \n\`\`\`js\n${message.guild.name}\n\`\`\`\nServer ID:\n\`\`\`js\n${message.guild.id}\n\`\`\`\nServer Member Count:\n\`\`\`js\n${message.guild.memberCount}\n\`\`\``) 
+                       .setColor("BLUE")
+                       .setFooter("")
+                       clients.channels.cache.get("916977769823477800").send({embeds:[reportToChannel]})
+                       let err = new Discord.MessageEmbed()
+       .setTitle("Failed to calculate route")
+       .setDescription(`Error: \`\`\`js\nUser input variable <find STATIC.ROUTE> input of system not exist, unreachable or Kspace category\n\`\`\``)
+       .setColor("RED")
+       message.channel.send({embeds:[err]})
                 }
             })
             .caught(function(err) {
@@ -101,3 +139,6 @@ module.exports = {
         }
 }
 }
+
+
+                    

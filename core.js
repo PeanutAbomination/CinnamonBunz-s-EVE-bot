@@ -19,7 +19,7 @@ for(const file2 of EveCommandFiles){
   const EveCommand = require(`./${file2}`);
   EveClients.commands.set(EveCommand.name, EveCommand);
 }
-
+var lang = "en"
 const settings = {
     prefix: 'bun ',
     token: `${config.login}`
@@ -130,57 +130,17 @@ clients.on("messageCreate", async (message, args) => {
         }
     }else
     if(message.content.startsWith(settings.prefix + "blacklist")){
-      if(message.content == settings.prefix + "blacklist"){
-        let err = new Discord.MessageEmbed()
-        .setTitle("There was an error while using the blacklist command")
-        .setDescription("Error: `PREFIX blacklist NULL`")
-        .setColor("RED")
-        message.channel.send({embeds:[err]})
-      }else
-      if(!(message.content == settings.prefix + "blacklist")){
-        if(message.author.id == "857071788270026772"){
-          const Input = message.content
-          const Input2 = `${Input.replace("bun blacklist ","")}`
-          const get1 = `${Input2.replace(`>`, "")}`
-          const get = `${get1.replace("<@!","")}`
-          if((message.guild.members.cache.get(`${get}`))){
-            const user = clients.users.cache.get(`${get}`).username
-            const id = clients.users.cache.get(`${get}`).id
-            const content = fs.readFileSync("./discordDatabase/admin/blacklist.json");
-            if(content.includes(`"${user}":"${id}"`)){
-              let err = new Discord.MessageEmbed()
-              .setTitle("There was an error while using the blacklist command")
-              .setDescription(`Error: \`User already exist\``)
-              .setColor("RED")
-              message.channel.send({embeds:[err]})
-            }else
-            if(!(content.includes(`"${user}":"${id}"`))){
-            clients.channels.cache.get("916977769823477800").send("A user have been blacklisted, renewing database.")
-          clients.commands.get("blacklist").execute(message, args, cmdName, extraString, status, reason,user,id)
-          console.log("executed outside command\nUser: " + user + "\nID: " + id)
-          var [cmdName,extraString ,status,reason, report] = [`${message.content.replace(settings.prefix , "").split(" ")}`,`CLASSIFIED` ,"CLASSIFIED", "N/A", "1"]
-       let reportToChannel = new Discord.MessageEmbed()
-       .setTitle("Report from the bot")
-       .setDescription(`Command Name:\n\`\`\`js\n${cmdName[0]}\n\`\`\`\nExtra String:\n\`\`\`js\n${extraString}\n\`\`\`\nStatus:\n\`\`\`js\n${status}\n\`\`\`\nReason:\n\`\`\`js\n${reason}\n\`\`\`\nTime:\n\`\`\`js\n${Date().toLocaleString('en-US')}\n\`\`\`\nUser Tag:\n \`\`\`js\n${message.author.tag}\n\`\`\`\nUser ID:\n\`\`\`js\n ${message.author.id}\n\`\`\`\nServer: \n\`\`\`js\n${message.guild.name}\n\`\`\`\nServer ID:\n\`\`\`js\n${message.guild.id}\n\`\`\`\nServer Member Count:\n\`\`\`js\n${message.guild.memberCount}\n\`\`\``) 
-       .setColor("BLUE")
-       clients.channels.cache.get("916977769823477800").send({embeds:[reportToChannel]})
-            }
-      }else 
-      if(!(message.guild.members.cache.get(`${get}`))){
-        let err = new Discord.MessageEmbed()
-        .setTitle("There was an error while using the blacklist command")
-        .setDescription(`Error: \`USER NOT found, USER INPUT: ${get}\`\n\ntip: ping the user to blacklist the user`)
-        .setColor("RED")
-        message.channel.send({embeds:[err]})
-      }
-    }
-        if(!(message.author.id == "857071788270026772")){
-          let err = new Discord.MessageEmbed()
-          .setTitle("There was an error while using the blacklist command")
-          .setDescription("Error: You are not my master")
-          .setColor("RED")
-          message.channel.send({embeds:[err]})
-        }
+      var [cmdName,extraString ,status,reason, report, user,id] = [`${message.content.replace(settings.prefix , "")}`,"LATE DECLARE" ,"LATE DECLARE", "LATE DECLRE", "1",message.author.username,message.author.id]
+      const GuildId = message.guild.id
+      const Input = message.content
+      const Input2 = `${Input.replace("bun blacklist ","")}`
+      const get1 = `${Input2.replace(`>`, "")}`
+      const get = `${get1.replace("<@!","")}`
+      try{
+      const userID = clients.users.cache.get(`${get}`).id
+      clients.commands.get("blacklist").execute(message, args, cmdName, extraString, status, reason,user, id,userID, GuildId,prefix,get)
+      }catch(err){
+        console.log(err)
       }
     }else
     if(message.content.startsWith(prefix + "route")){
@@ -192,14 +152,12 @@ clients.on("messageCreate", async (message, args) => {
       clients.commands.get("clear").execute(message, args, cmdName, extraString, status, reason,user,id)
     }else
     if((message.content.startsWith(prefix + "spam"))){
-      var data = require("./eveCmds/admin/maintenance.json").system
       var [cmdName,extraString ,status,reason, report, user,id] = [`${message.content.replace(settings.prefix , "")}`,"LATE DECLARE" ,"LATE DECLARE", "LATE DECLRE", "1",message.author.username,message.author.id]
-      clients.commands.get("spam").execute(message, args, cmdName, extraString, status, reason,user,id)
+      clients.commands.get("spam").execute(message, args, cmdName, extraString, status, reason,user,id, prefix,lang)
     }else
     if((message.content.startsWith(prefix + "maintenance"))){
-      var data = require("./eveCmds/admin/maintenance.json").system
       var [cmdName,extraString ,status,reason, report, user,id] = [`${message.content.replace(settings.prefix , "")}`,"LATE DECLARE" ,"LATE DECLARE", "LATE DECLRE", "1",message.author.username,message.author.id]
-      clients.commands.get("maintenance").execute(message, args, cmdName, extraString, status, reason,user,id,data)
+      clients.commands.get("maintenance").execute(message, args, cmdName, extraString, status, reason,user,id)
     }else
     if((message.content.startsWith(prefix + "get"))){
       var [cmdName,extraString ,status,reason, report, user,id] = [`${message.content.replace(settings.prefix , "")}`,"LATE DECLARE" ,"LATE DECLARE", "LATE DECLRE", "1",message.author.username,message.author.id]
@@ -210,12 +168,23 @@ clients.on("messageCreate", async (message, args) => {
       clients.commands.get("help").execute(message, args, cmdName, extraString, status, reason,user,id)   
     }else
     if((message.content.startsWith(prefix + "calculate"))){
-   
+      var [cmdName,extraString ,status,reason, report, user,id] = [`${message.content.replace(settings.prefix , "")}`,"LATE DECLARE" ,"LATE DECLARE", "LATE DECLRE", "1",message.author.username,message.author.id]
+      var lang = "en"
+      clients.commands.get("calculate").execute(message, args, cmdName, extraString, status, reason,user,id, prefix,lang)
+    }else
+    if((message.content.startsWith(prefix + "say"))){
+      if(message.deletable){
+      message.delete()
+      }
+      message.channel.send(message.content.replace(prefix + "say ", ""))
     }
   }
+  
   }
 }
 })
+
+
 let {PythonShell} = require('python-shell')
 clients.on("messageCreate", async (message, args) => {
 if(message.content == "bun test"){
@@ -226,103 +195,8 @@ if(message.content == "bun test"){
   });
 }else
 if(message.content == settings.prefix + "test2"){
-  const testFolder = './sde/fsd/universe/wormhole';
-  const fs = require('fs');
-  
-  fs.readdirSync(testFolder).forEach(file => {
-  // file = all file
-  const fs = require('fs');
-  const dir = './sde/fsd/universe/wormhole';
-  
-  fs.readdir(dir, (err, files) => {
-  //files.length = file amount
-  const testFolder = './sde/fsd/universe/wormhole/' + file;
-  var getWHfolder = testFolder
-  const fs = require('fs');
-  
-  fs.readdirSync(testFolder).forEach(file => {
-  //this second forEach-file is the folder in region of region
-  const path = './sde/fsd/universe/wormhole/' + file + "/region.staticdata";
-  
-  fs.unlink(path, (err) => {
-    if (err) {
-      message.channel.send("searching region of region: " + file)
-      const testFolder = getWHfolder + "/" + file;
-      var getWHdata = testFolder
-      const fs = require('fs');
-      
-      fs.readdirSync(testFolder).forEach(file => {
-      //going into the wormhole folder
-      const path = getWHfolder + "/constellation.staticdata"
-      
-      fs.unlink(path, (err) => {
-        if (err) {
-          //continue because it doesnt exist
-          const testFolder = getWHdata + "/" + file;
-          const fs = require('fs');
-          
-          fs.readdirSync(testFolder).forEach(file => {
-          //getting WH data
-            message.channel.send(file)
-          });
-          
-          return
-        }
-        const testFolder = getWHdata + "/" + file;
-        const fs = require('fs');
-        
-        fs.readdirSync(testFolder).forEach(file => {
-        //getting WH data
-          message.channel.send(file)
-        });
-        
-        //file removed
-      })
-      });
-      return
-    }
-
-    message.channel.send("searching region of region: " + file)
-    const testFolder = getWHfolder + "/" + file;
-    var getWHdata = testFolder
-    const fs = require('fs');
-    
-    fs.readdirSync(testFolder).forEach(file => {
-    //going into the wormhole folder
-    const path = getWHfolder + "/constellation.staticdata"
-    
-    fs.unlink(path, (err) => {
-      if (err) {
-        //continue because it doesnt exist
-        const testFolder = getWHdata + "/" + file;
-        const fs = require('fs');
-        
-        fs.readdirSync(testFolder).forEach(file => {
-        //getting WH data
-          message.channel.send(file)
-        });
-        
-        return
-      }
-    const testFolder = getWHdata + "/" + file;
-    const fs = require('fs');
-    
-    fs.readdirSync(testFolder).forEach(file => {
-    //getting WH data
-      message.channel.send(file)
-    });
-    
-      //file removed
-    })
-    });
-    //file removed
-  })
-  });
-  });
-  });
-  
-}
+ 
+  }
 })
 clients.login(config.login)
-tClients.login("CLASSIFIED")
-
+tClients.login("OTI4OTE0NTcyMjAxNTYyMTQz.YdftHA.U32U0EVfGvXh2CuWlkCf8yoP3_w")
