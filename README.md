@@ -77,7 +77,7 @@ const testFolder = path + "/" + file;
 fs.readdirSync(testFolder).forEach(file => {
 const systemData = testFolder.split("/")[7]
 var fs = require('fs');
-fs.readFile('./solarSystem/wh.xml', 'utf8' , (err, data) => {
+fs.readFile('./solarSystems/wh.xml', 'utf8' , (err, data) => {
   if (err) {
     console.error(err)
     return
