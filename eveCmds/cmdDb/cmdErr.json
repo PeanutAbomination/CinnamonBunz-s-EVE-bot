@@ -1,0 +1,46 @@
+{
+    "spam":{
+        "maintenanceErr":{
+            "en": {"description":"reason: `maintenance mode is active`","title":"There was an error while running the spam command"},
+            "ru": {"description":"","title":""},
+            "zh": {"description":"原因：`系统正在维护`","title":"命令时有出现错误"}
+        },
+        "noErr":{
+            "en": {"description":"reason: `either input amount is greater or lesser than the limit`\n\n max: 30\nmin: 1","title":"There was an error while running the spam command"},
+            "ru": {"description":"","title":""},
+            "zh": {"description":"原因：`输入数字大于或小于限制` 最高：30，至少：1","title":"命令时有出现错误"}
+        },
+        "channelErr":{
+            "en": {"description":"reason: `Wrong channel`","title":"There was an error while running the spam command"},
+            "ru": {"description":"","title":""},
+            "zh": {"description":"原因：`错误的频道`","title":"命令时有出现错误"}
+        },
+        "emptyErr":{
+            "en": {"description":"reason: `Empty input`","title":"There was an error while running the spam command"},
+            "ru": {"description":"","title":""},
+            "zh": {"description":"原因：`输入空`","title":"命令时有出现错误"}
+        },
+        "NaNErr":{
+            "en": {"description":"reason: `Amount not a number`","title":"There was an error while running the spam command"},
+            "ru": {"description":"","title":""},
+            "zh": {"description":"原因：`输入数字不是数字`","title":"命令时有出现错误"}
+        }
+    },
+    "calculate":{
+        "emptyErr":{
+            "en": {"description":"reason: `Empty input`","title":"There was an error while running the spam command"},
+            "ru": {"description":"","title":""},
+            "zh": {"description":"原因：`输入空`","title":"命令时有出现错误"}
+        },
+        "syntaxErr":{
+            "en": {"description":"reason: `Syntax error, illegal charactor`","title":"There was an error while running the spam command"},
+            "ru": {"description":"","title":""},
+            "zh": {"description":"原因：`语法错误，非法字符`","title":"命令时有出现错误"}
+        },
+        "calcErr":{
+            "en": {"description":"reason: `Equation answer is probably Infinity, MATHS Error, decimal point or other errors`","title":"There was an error while running the spam command"},
+            "ru": {"description":"","title":""},
+            "zh": {"description":"原因：`方程答案可能是无穷大、数学错误、小数点或其他错误`","title":"命令时有出现错误"}  
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "spam":{
+        "done":{
+            "en":{"description":"I have done spamming", "title":"Operation successful"},
+            "zh":{"description":"我已发送垃圾邮件", "title":"操作成功"},
+            "ru":{"description":"Я рассылал спам", "title":"Операция прошла успешно"}
+        }
+    },
+    "calculate":{
+        "done":{
+            "en":{"description":"I have done calculating", "title":"Operation successful"},
+            "zh":{"description":"我已计算", "title":"操作成功"},
+            "ru":{"description":"я сделал расчет", "title":"Операция прошла успешно"}
+        }
+    }
+}
